@@ -17,6 +17,15 @@ message = client.messages \
 
 print(message.sid)
 
+
+def send_message(msg):
+    client.messages \
+                .create(
+                     body=msg,
+                     from_='+15017122661',
+                     to='+12674756252'
+                 )
+                 
 # Robin Stocks begin
 robin.login(<username>,<password>)
 

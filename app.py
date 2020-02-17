@@ -1,6 +1,6 @@
 import robin_stocks from '' as robin
+import pprint
 from time import sleep
-
 amt_shop = 0
 
 # log in
@@ -30,14 +30,29 @@ while(true):
             amt_shop = 0
     prev_price = curr_price
 
+portfolio = {}
+# {"SHOP":{price:500, price_bought:525, shares_quant:}}
+#
+# SHOP [500, 501,502, 505, 505, 510, 499, 501]
+#
 
+
+robin.logout()
+
+#-------------------------------------
+#get matplotlib
+#watchlist of symbols 
+#{SYMB:price, shares, buy_price, sell_price, slope}
+#slope
+#acceleration
+#volume
+#total_volume
+#channel 
+#
 # # execute buy order
 # if curr_price < 550:
 #     robin.order_buy_limit('SHOP', 1, 525.25)
 
 # # get current holdings
-# robin.get_current_positions()
-
-
-robin.logout()
+# robin.get_current_positions()z
 
