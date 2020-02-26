@@ -1,9 +1,21 @@
 import robin_stocks from '' as robin
 import pprint
 from time import sleep
+from datetime import datetime
+import pytz 
+
+#----------------------------
+# helpers
+def time_stamp():
+    utc_now = pytz.utc.localize(datetime.utcnow())
+    est_now = utc_now.astimezone(pytz.timezone("America/New_York")) 
+    dt_string = est_0now.strftime("%b-%d, %Y: %H:%M:%S")
+    print(dt_string)
+    return dt_string
+#----------------------------
 amt_shop = 0
 
-# log in
+# log inz
 robin.login(<username>,<password>)
 
 # get current holdings
