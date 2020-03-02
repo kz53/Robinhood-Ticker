@@ -1,22 +1,16 @@
 from time import sleep
 from datetime import datetime
-import pytz
-import sys
 
 def time_stamp():
     utc_now = pytz.utc.localize(datetime.utcnow())
     est_now = utc_now.astimezone(pytz.timezone("America/New_York")) 
-    dt_string = est_now.strftime("%b-%d: %H:%M:%S \n")
+    dt_string = est_0now.strftime("%b-%d, %Y: %H:%M:%S")
     print(dt_string)
     return dt_string
 
-f = open("test-log-file-2.txt", "a")
-
-f.write("Time Log: \n")
-
+f = open("test-log-file.txt", "a")
+f.write(time_stamp())
 while(true):
     f.write(time_stamp())
-    f.flush()
-    sleep(2)
+    sleep(5)
 f.close()
-

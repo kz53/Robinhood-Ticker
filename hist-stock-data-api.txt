@@ -1,0 +1,6 @@
+HISTORICAL STOCK DATA API LIST
+
+
+Interactive Brokers 
+FMP
+Quantopian
