@@ -1,10 +1,10 @@
-f = open("raw-output.txt", "r")
-n = open("raw-output-numbers.txt", "a")
+f = open("raw-output-numbers.txt", "r")
+n = open("raw-output-numbers-minute.txt", "a")
 
 i = 0
-for s in f.readlines:
-    if i % 3 = 1:
-        n.write(s+"/n")
+for s in f.readlines():
+    if i % 60 == 0:
+        n.write(s)
     i += 1
 
 f.close()
