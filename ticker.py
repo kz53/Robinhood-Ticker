@@ -14,13 +14,13 @@ def time_stamp():
     print(dt_string)
     return dt_string
 
-f = open("raw-output.txt", "a")
+f = open("raw-output-3-9-20.txt", "a")
 i = 0
-while(i<14400):
-    f.write(time_stamp())
+while(i<24000):
+    #f.write(time_stamp())
     price = robin.get_latest_price("MSFT")[0]
     f.write(price+"\n")
-    f.write("--------------------------------\n")
+    #f.write("--------------------------------\n")
     f.flush()
     i += 1
     sleep(1)
