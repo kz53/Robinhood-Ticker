@@ -1,6 +1,6 @@
 import timeit 
 
-f = open("raw-output-3-9-20.txt","r")
+f = open("raw-output-3-24-20.txt","r")
 
 nums = []
 
@@ -13,6 +13,7 @@ stocks = 0
 entry = 0
 exits = [] 
 profits = 0
+saved_exits = []
 
 def buy(x):
     global stocks
@@ -38,6 +39,13 @@ for i in range(23000):
         buy(nums[i]) 
     elif i % 1  == 0 and nums[i] < entry and stocks == 1:
         sell(entry)
+        saved = False
+        for y in nums[i:i+45]:
+            if y > entry:
+                saved = True
+            if saved:
+                saved_exits.append(entry)
+        saved = False 
         exits.append([entry, nums[i], nums[i+1], nums[i+2],nums[i+3]])
         #sell(nums[i])
         
@@ -45,6 +53,8 @@ if stocks == 1:
     sell(nums[len(nums)-1])
 
 print(exits)
+print(str(len(exits)))
+print(str(len(saved_exits)))
 print("Profit: " + str(profits))
 print("finished")
 
