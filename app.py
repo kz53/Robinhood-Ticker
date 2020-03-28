@@ -1,11 +1,11 @@
-import robin_stocks from '' as robin
-import robin_helpers as helper 
+import robin_stocks as robin
+# import robin_helpers as helper 
 import pprint
 from time import sleep
 from datetime import datetime
 import pytz 
-import config
-
+# import config 
+import twilio_helper as twilio
 #----------------------------
 # helpers
 def time_stamp():   
@@ -14,6 +14,10 @@ def time_stamp():
     dt_string = est_0now.strftime("%b-%d, %Y: %H:%M:%S")
     print(dt_string)
     return dt_string
+
+def buy(quantity):
+    price = 147.87
+    twilio.send_msg("Bought " + str(quantity) + "shares @ $" + str(price))
 #----------------------------
 
 print(config.secret)
@@ -44,7 +48,7 @@ test_symbol= 'SHOP'
 principal = 10000
 curr_price = float(robin.get_latest_price(test_symbol)[0])
 prev_price = float(robin.get_latest_price(test_symbol)[0])
-permitted = True
+permitted = False
 time_interval = 300
 # ticker information
 while(permitted):
@@ -68,6 +72,8 @@ while(permitted):
 #
 # SHOP [500, 501,502, 505, 505, 510, 499, 501]
 #
+
+buy(7)
 
 
 robin.logout()

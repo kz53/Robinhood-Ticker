@@ -8,10 +8,10 @@ auth_token = twilio_password
 
 client = Client(account_sid, auth_token)
 
-def send_msg(msg_text):
+def send_msg(msg_str):
     message = client.messages \
                 .create(
-                     body=msg_text,
+                     body=msg_str,
                      from_='+12015716393',
                      to='+12674756252'
                 )
