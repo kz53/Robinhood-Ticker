@@ -4,7 +4,7 @@ import pprint
 from time import sleep
 from datetime import datetime
 import pytz 
-# import config 
+import config 
 import twilio_helper as twilio
 #----------------------------
 # helpers
@@ -17,7 +17,10 @@ def time_stamp():
 
 def buy(quantity):
     price = 147.87
-    twilio.send_msg("Bought " + str(quantity) + "shares @ $" + str(price))
+    twilio.send_msg("Bought " + str(quantity) + " shares @ $" + str(price))
+#----------------------------
+sma_period = 5
+
 #----------------------------
 
 print(config.secret)

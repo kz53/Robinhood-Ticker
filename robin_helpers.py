@@ -2,9 +2,16 @@
 def time_stamp():
     utc_now = pytz.utc.localize(datetime.utcnow())
     est_now = utc_now.astimezone(pytz.timezone("America/New_York")) 
-    dt_string = est_0now.strftime("%b-%d, %Y: %H:%M:%S")
+    dt_string = est_now.strftime("%b-%d, %Y: %H:%M:%S")
     print(dt_string)
     return dt_string
+
+class sma:
+    values = []
+    sma_period = 1    
+    
+    def __init__(self, time_period):
+        sma_period = time_period
 
 # Returns float to 2 decimal places
 def get_price(symbol):
