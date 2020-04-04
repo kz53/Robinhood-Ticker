@@ -12,6 +12,14 @@ class sma:
     
     def __init__(self, time_period):
         sma_period = time_period
+    
+    def add_value(val):
+        values.append(val)
+        if len(values) > sma_period:
+            values.pop()    
+            return sum(values)/sma_period
+        else:
+            return -1
 
 # Returns float to 2 decimal places
 def get_price(symbol):
