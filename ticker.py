@@ -14,7 +14,7 @@ def time_stamp():
     print(dt_string)
     return dt_string
 
-f = open("raw-output-4-3-20.txt", "a")
+f = open("raw-output-4-23-20.txt", "a")
 i = 0
 while(i<23500):
     #f.write(time_stamp())
