@@ -4,7 +4,7 @@ import pprint
 from time import sleep
 from datetime import datetime
 import pytz 
-# import config 
+import config 
 import twilio_helper as twilio
 #----------------------------
 # helpers
@@ -17,15 +17,29 @@ def time_stamp():
 
 def buy(quantity):
     price = 147.87
-    twilio.send_msg("Bought " + str(quantity) + "shares @ $" + str(price))
-#----------------------------
+    twilio.send_msg("Bought " + str(quantity) + " shares @ $" + str(price))
 
+def isPermitted():
+    return True
+#----------------------------
+# parameters
+sma_period = 5
+test_symbol= 'SHOP'
+principal = 10000
+#----------------------------
+# data structures
+price_arr = []
+price_tuple_arr = [(0,165.0)]
+    #(time, objects, volume)
+
+#----------------------------
 print(config.secret)
 # log in
 robin.login(config.rh_usr_name, config.rh_password)
 
 # get current holdings
 portfolio = robin.get_current_positions()
+#SAMPLE RESPONSE
     # {
     # 'I':{
     #         'price': '4', 
@@ -44,17 +58,16 @@ portfolio = robin.get_current_positions()
     # 'SHOP':{}
     # }
 
-test_symbol= 'SHOP'
-principal = 10000
+# main loop
 curr_price = float(robin.get_latest_price(test_symbol)[0])
 prev_price = float(robin.get_latest_price(test_symbol)[0])
 permitted = False
 time_interval = 300
+
 # ticker information
 while(permitted):
     seconds = 0
     entry_price = float(robin.get_latest_price(test_symbol)[0])
-    sleep(500)
     curr_price = float(robin.get_latest_price(test_symbol)[0])
 
     while (seconds < time_interval):
@@ -70,13 +83,12 @@ while(permitted):
         seconds += 1
 # {"SHOP":{price:500, price_bought:525, shares_quant:}}
 #
-# SHOP [500, 501,502, 505, 505, 510, 499, 501]
-#
-
-buy(7)
-
 
 robin.logout()
+
+
+
+
 
 #-------------------------------------
 #get matplotlib
