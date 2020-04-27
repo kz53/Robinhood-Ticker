@@ -14,6 +14,7 @@ entry = 0
 exits = [] 
 profits = 0
 saved_exits = []
+time_interval = 15 
 
 def buy(x):
     global stocks
@@ -32,7 +33,7 @@ def sma(a, b):
     return sum(nums[a:b+1])/(b-a)
 
 for i in range(23000):
-    if i % 60 == 0:
+    if i % time_interval == 0:
         if stocks == 1:        
             sell(nums[i])
         entry = nums[i]
