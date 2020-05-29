@@ -1,0 +1,32 @@
+In short, no - do OLS regression like you are supposed to be doing. There are many common scenarios where it works very well in spite of some measurement error in the predictors and this is probably one. Of course it's good to keep the issue of attenuation bias in your mind for later, go read https://cran.r-project.org/web/packages/lmodel2/vignettes/mod2user.pdf or its references.
+Personally, the only situation where I consider stuff like SMA regression is when I'm estimating the slope of the relationship between two variables that are
+Normal (ish) 
+The same type of measurement, e.g. both a batting average
+Noisy
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+
+
+------------------------------------------------------------------------------------
+
+

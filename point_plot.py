@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
-import numpy as np
+# import numpy as np
+# import pandas as pd
+from talib import LINEARREG_SLOPE
 
 #load data
-f = open("raw-output-3-24-20.txt","r")
+f = open("raw-outputs/raw-output-3-24-20.txt","r")
 
 #initialize all values 
 ys = []
@@ -19,18 +21,20 @@ entry = 0
 stocks = 0
 exits = []
 time_interval = 15
+
 #main loop
 lines = f.readlines()
 for p in lines[0:23000]:
     ys.append(float(p))
     xs.append(time)
 
-    #every minute
+    #every time
     if counter % time_interval == 0:
     	minute_ys.append(float(p))
     	minute_xs.append(time)
     	entry = float(p)
     	stocks = 1
+
     #every second
     elif counter % 1  == 0 and stocks == 1:
         #dips below entry

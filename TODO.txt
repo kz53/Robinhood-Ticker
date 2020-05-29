@@ -1,3 +1,0 @@
-TODO
-
-Py Twilio Quick Start: https://www.twilio.com/docs/sms/quickstart/python
