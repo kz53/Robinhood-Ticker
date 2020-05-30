@@ -1,0 +1,5 @@
+todo
+
+create new folder on linux
+configure git
+put algo in separate file
