@@ -9,7 +9,7 @@ robin.login(config.rh_usr_name, config.rh_password)
 
 utc_now = pytz.utc.localize(datetime.utcnow())
 
-failed = false
+failed = False
 day_str = utc_now.strftime("%d")
 month_str = utc_now.strftime("%m")
 year_str = utc_now.strftime("%y")
@@ -22,7 +22,7 @@ def time_stamp():
     return dt_string
 
 
-f = open("raw-output-{month_str}-{day_str}-{year_str}.txt", "a")
+f = open(f"raw-output-{month_str}-{day_str}-{year_str}.txt", "a")
 i = 0
 while(i<23500):
     try:

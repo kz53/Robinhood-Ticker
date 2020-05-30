@@ -19,9 +19,4 @@ def send_msg(msg_str):
     print(message.sid)
 
 def notify_error_msg():
-     message = client.messages \
-               a.create(
-                    body='ALERT: ticker.py has failed.',
-                    from_='+12015716393',
-                    to='+12674756252'
-                )
+    message = client.messages.create(body='ALERT: ticker.py has failed.',from_='+12015716393',to='+12674756252')
