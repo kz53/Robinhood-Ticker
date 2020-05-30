@@ -22,7 +22,7 @@ def time_stamp():
     return dt_string
 
 
-f = open("raw-output-{month_str}-{day_str}-{year_str}.txt", "a")
+f = open("../raw-output-files/{month_str}-{day_str}-{year_str}-raw-output.txt", "a")
 i = 0
 while(i<23500):
     try:
