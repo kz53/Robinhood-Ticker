@@ -23,6 +23,8 @@ def time_stamp():
 
 f = open(f"../raw-output-files/{month_str}-{day_str}-{year_str}-raw-output.txt", "a")
 i = 0
+twilio.notify_error_msg()
+
 while(i<23500):
     try:
         #f.write(time_stamp())
