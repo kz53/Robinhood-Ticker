@@ -1,7 +1,7 @@
 import timeit 
 import numpy as np
 import matplotlib.pyplot as plt
-
+import talib as ta
 
 #intialize config
 buys = [] 
@@ -55,26 +55,43 @@ def sma(a, b):
     global nums
     return sum(nums[a:b+1])/(b-a)
 
-def do_algo(i): 
-    if (arr_ys[i]>entry): 
+def do_algo(i, t=15): 
+    points = arr_ys[i-(t+2):i+1]
+    slope = ta.LINEARREG_SLOPE(points,t)[-1]  
+    slope_5 = ta.LINEARREG_SLOPE(points,5)[-1]
+    # slope_prev = ta.LINEARREG_SLOPE(points,t)[-2]  
+    # slope_prev_2 = ta.LINEARREG_SLOPE(points,t)[-3]  
+    # print(str(slope_prev_2))
+    if slope > 0 and slope_5 > 0: 
+        return True
+    else:
+        return False
+
+def cross_entry(i, t=15):
+    points = arr_ys[i-(t+2):i+1]
+    slope = ta.LINEARREG_SLOPE(points,t)[-1]  
+    # slope_prev = ta.LINEARREG_SLOPE(points,t)[-2]  
+    # slope_prev_2 = ta.LINEARREG_SLOPE(points,t)[-3]  
+    # print(str(slope_prev_2))
+    if slope > 0: 
         return True
     else:
         return False
 
 # main loop starts here
-for i in range(time_total):
+for i in range(20, time_total):
     
-    if i % 15 == 0:
+    if i % 15 == 14:
         direction_up = do_algo(i)
-        if qty_stocks == 0:
+        if qty_stocks ==   0:
             if direction_up: 
                 buy(arr_ys[i], i)
             else:
                 #HOLD
                 pass
         elif qty_stocks == 1:
-            if direction_up:
-                #HOLD
+            if direction_up: 
+                #HOLD 
                 pass
             else:
                 sell(arr_ys[i], i)
@@ -82,8 +99,10 @@ for i in range(time_total):
             raise Exception("You can't have something either than 1 or 0 stocks")
     else:
         if arr_ys[i] < entry and qty_stocks != 0:
-            sell(arr_ys[i], i)
-        if arr_ys[i] > entry + .20: 
+            direction_up = cross_entry(i)
+            if not direction_up:
+                sell(arr_ys[i], i)
+        if arr_ys[i] > entry + .15: 
             entry = arr_ys[i]
 
     # if i % time_interval == 0:
@@ -119,22 +138,18 @@ for t in transactions:
     sell_ys.append(t[2])
 
 plt.plot(arr_xs, arr_ys)
-# plt.plot(arr_xs, arr_ys, 'b.')
-
+plt.plot(arr_xs, arr_ys, 'b.')
 
 plt.plot(sell_xs, sell_ys, 'ro')
 plt.plot(buy_xs, buy_ys, 'g^') 
 
-
-
-plt.show()
-
-
 print("Transactions: ", str(transactions))
 print("Profit: ", str(profit))
+print("Num transactions: ", str(len(transactions)))
 # print(exits)
 # print(str(len(exits)))
 # print(str(len(saved_exits)))
 # print("Profit: " + str(profits))
+plt.show()
 print("finished")
 
