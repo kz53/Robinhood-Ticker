@@ -1,5 +1,0 @@
-todo
-
-
-put algo in separate file
- 

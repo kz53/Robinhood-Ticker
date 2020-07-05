@@ -10,9 +10,25 @@ robin.login(config.rh_usr_name, config.rh_password)
 utc_now = pytz.utc.localize(datetime.utcnow())
 
 failed = False
-day_str = utc_now.strftime("%d")
-month_str = utc_now.strftime("%m")
-year_str = utc_now.strftime("%y")
+
+day = utc_now.strftime("%d")
+month = utc_now.strftime("%m")
+year = utc_now.strftime("%y")
+date = year + month + day
+
+watchlist_symbols=[
+    'MSFT',
+    'SHOP',
+    'GOOG',
+    'SNAP',
+]
+
+filenames = []
+for symb in watchlist_symbols:
+    name = f'../secdata/{symb}/{symb}-{date}-secdata.txt'
+    filenames.append(name)
+
+files = [open(f, "a") for f in filenames] 
 
 def time_stamp():
     utc_now = pytz.utc.localize(datetime.utcnow())
@@ -21,25 +37,32 @@ def time_stamp():
     print(dt_string)
     return dt_string
 
-f = open(f"../raw-output-files/{month_str}-{day_str}-{year_str}-raw-output.txt", "a")
-i = 0
-twilio.notify_error_msg()
 
-while(i<23500):
+twilio.send_key_msg('start')
+
+i = 0
+while(i<23300):
     try:
         #f.write(time_stamp())
-        price = robin.get_latest_price("MSFT")[0]
-        f.write(price+"\n")
-        #f.write("--------------------------------\n")
-        f.flush()
+        resp = robin.get_latest_price(watchlist_symbols)
+        for i in range(len(files)):
+            f = files[i]
+            f.write(result[i]+',\n')
+            f.flush()
+            #f.write("--------------------------------\n")
+
     except:
-        f.write("-1"+"\n")
-        f.flush()
-        if failed:
+        for i in range(len(files)):
+            f = files[i]
+            f.write('-1'+',\n')
+            f.flush()
+        # if failed:
             twilio.notify_error_msg()
             failed = True
     i += 1
     sleep(1)
+
 f.close()
 robin.logout()
+twilio.send_key_msg('end')
 print("finished")
