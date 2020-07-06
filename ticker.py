@@ -13,7 +13,7 @@ failed = False
 
 day = utc_now.strftime("%d")
 month = utc_now.strftime("%m")
-year = utc_now.strftime("%y")
+year = utc_now.strftime("%Y")
 date = year+'-'+month+'-'+day
 
 watchlist_symbols=[
