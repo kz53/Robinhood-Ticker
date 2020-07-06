@@ -47,7 +47,7 @@ while(i<23300):
         resp = robin.get_latest_price(watchlist_symbols)
         for i in range(len(files)):
             f = files[i]
-            f.write(result[i]+',\n')
+            f.write(resp[i]+'\n')
             f.flush()
             #f.write("--------------------------------\n")
 
