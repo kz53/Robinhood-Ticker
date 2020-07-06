@@ -14,7 +14,7 @@ failed = False
 day = utc_now.strftime("%d")
 month = utc_now.strftime("%m")
 year = utc_now.strftime("%y")
-date = year + month + day
+date = year+'-'+month+'-'+day
 
 watchlist_symbols=[
     'MSFT',
@@ -56,7 +56,7 @@ while(i<23300):
             f = files[i]
             f.write('-1'+',\n')
             f.flush()
-        # if failed:
+        if not failed:
             twilio.notify_error_msg()
             failed = True
     i += 1
