@@ -48,7 +48,7 @@ def time_stamp():
 twilio.send_key_msg('start')
 
 i = 0
-while(i<6):
+while(i<23300):
     try:
         #f.write(time_stamp())
         resp = robin.get_latest_price(watchlist_symbols)
