@@ -21,6 +21,13 @@ watchlist_symbols=[
     'SHOP',
     'GOOG',
     'SNAP',
+    'TSLA',
+    'BA',
+    'BYND',
+    'SPCE',
+    'UBER',
+    'COST',
+    'DIS',
 ]
 
 filenames = []
@@ -41,19 +48,18 @@ def time_stamp():
 twilio.send_key_msg('start')
 
 i = 0
-while(i<23300):
+while(i<6):
     try:
         #f.write(time_stamp())
         resp = robin.get_latest_price(watchlist_symbols)
-        for i in range(len(files)):
-            f = files[i]
-            f.write(resp[i]+'\n')
+        for j in range(len(files)):
+            f = files[j]
+            f.write(resp[j]+'\n')
             f.flush()
             #f.write("--------------------------------\n")
-
     except:
-        for i in range(len(files)):
-            f = files[i]
+        for j in range(len(files)):
+            f = files[j]
             f.write('-1'+',\n')
             f.flush()
         if not failed:
