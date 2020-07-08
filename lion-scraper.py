@@ -1,13 +1,36 @@
+# COPY ME DONT EDIT
+
+import requests
+import json
 from time import sleep
 from datetime import datetime
 import pytz
 import pprint
-import twilio_helper as twilio
+# import twilio_helper as twilio
+
+# key = ''
+# secret_key = ''
+# headers = {'KEY':key, 'SECRET-KEY':secret_key}
+
+
+#GET
+#-------------------
+res = requests.get('https://api.stocktwits.com/api/2/streams/user/lionmaster.json')
+#-------------------
+
+print(res)
+print(type(res)) 
+
+# IF JSON
+res_dict = res.json()
+print("num messages: "+str(len(res_dict['messages'])))
+# print(res_dict['messages'][0]['symbols'])
+for msg in res_dict['messages']:
+    if 'symbols' in msg:
+        print(msg['body'])
+
 
 utc_now = pytz.utc.localize(datetime.utcnow())
-
-failed = False
-
 day = utc_now.strftime("%d")
 month = utc_now.strftime("%m")
 year = utc_now.strftime("%y")
