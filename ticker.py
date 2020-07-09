@@ -17,17 +17,24 @@ year = utc_now.strftime("%Y")
 date = year+'-'+month+'-'+day
 
 watchlist_symbols=[
-    'MSFT',
-    'SHOP',
-    'GOOG',
-    'SNAP',
-    'TSLA',
+    'AAPL',
+    'ADBE',
     'BA',
     'BYND',
-    'SPCE',
-    'UBER',
     'COST',
     'DIS',
+    'GOOG',
+    'JNJ',
+    'MSFT',
+    'NFLX',
+    'NKE',
+    'SHOP',
+    'SNAP',
+    'SPCE',
+    'SPY',
+    'TSLA',
+    'UBER',
+    'V',
 ]
 
 filenames = []
