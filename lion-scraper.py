@@ -2,32 +2,51 @@
 
 import requests
 import json
+import csv
 from time import sleep
 from datetime import datetime
 import pytz
 import pprint
 # import twilio_helper as twilio
 
-# key = ''
-# secret_key = ''
-# headers = {'KEY':key, 'SECRET-KEY':secret_key}
+messages_id = set()
+f = open('lion-posts.txt', 'r', newline='', encoding='utf-8')
+csv_reader = csv.reader(f)
+for row in csv_reader:
+    if row[0] != 'id':
+        messages_id.add(float(row[0]))
+print(messages_id)
+f.close()
 
+def sanitize_str(s):
+    return s
 
+f = open('lion-posts.txt', 'a', newline='', encoding='utf-8')
+csv_writer = csv.writer(f, delimiter=',',quotechar="'", quoting=csv.QUOTE_NONNUMERIC)
 #GET
 #-------------------
 res = requests.get('https://api.stocktwits.com/api/2/streams/user/lionmaster.json')
 #-------------------
 
-print(res)
-print(type(res)) 
 
 # IF JSON
 res_dict = res.json()
 print("num messages: "+str(len(res_dict['messages'])))
-# print(res_dict['messages'][0]['symbols'])
+res_dict['messages'].reverse()
 for msg in res_dict['messages']:
     if 'symbols' in msg:
-        print(msg['body'])
+        if msg['id'] not in messages_id:
+            row = []
+            row.append(msg['id'])
+            row.append(sanitize_str(msg['body']))
+            row.append(msg['created_at'])
+            print(msg['id'])
+            print(msg['body'])
+            print(msg['created_at'])
+            csv_writer.writerow(row)
+
+
+
 
 
 utc_now = pytz.utc.localize(datetime.utcnow())
