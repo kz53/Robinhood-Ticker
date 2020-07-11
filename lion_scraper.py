@@ -34,7 +34,6 @@ csv_writer = csv.writer(f, delimiter=',',quotechar='"', quoting=csv.QUOTE_NONNUM
 res = requests.get('https://api.stocktwits.com/api/2/streams/user/lionmaster.json')
 #-------------------
 
-
 # IF JSON
 res_dict = res.json()
 print("num messages: "+str(len(res_dict['messages'])))
