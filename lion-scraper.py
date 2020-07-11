@@ -9,8 +9,9 @@ import pytz
 import pprint
 # import twilio_helper as twilio
 
+filename = 'lion-posts.txt'
 messages_id = set()
-f = open('lion-posts.txt', 'r', newline='', encoding='utf-8')
+f = open(filename, 'r', newline='', encoding='utf-8')
 csv_reader = csv.reader(f)
 for row in csv_reader:
     if row[0] != 'id':
@@ -21,7 +22,7 @@ f.close()
 def sanitize_str(s):
     return s
 
-f = open('lion-posts.txt', 'a', newline='', encoding='utf-8')
+f = open(filename, 'a', newline='', encoding='utf-8')
 csv_writer = csv.writer(f, delimiter=',',quotechar="'", quoting=csv.QUOTE_NONNUMERIC)
 #GET
 #-------------------
@@ -36,13 +37,21 @@ res_dict['messages'].reverse()
 for msg in res_dict['messages']:
     if 'symbols' in msg:
         if msg['id'] not in messages_id:
+            
+            symbs = ""
+            for x in msg['symbols']:
+                if symbs == "":
+                    symbs += x['symbol']
+                else:
+                    symbs += ','+x['symbol']
             row = []
             row.append(msg['id'])
             row.append(sanitize_str(msg['body']))
             row.append(msg['created_at'])
-            print(msg['id'])
-            print(msg['body'])
-            print(msg['created_at'])
+            row.append(symbs)
+            # print(msg['id'])
+            # print(msg['body'])
+            # print(msg['created_at'])
             csv_writer.writerow(row)
 
 
@@ -63,13 +72,6 @@ def time_stamp():
     return dt_string
 
 
-# get request to stock twits 
-# filter out all the ones with ticker symbols 
-# open lionmessages.txt
-# load previous x msg
-# compare which ones are repeats
-# send twilio message for ones that aren't 
-# write ones that aren't
 
 
 
