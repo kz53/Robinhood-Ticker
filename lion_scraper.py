@@ -7,23 +7,28 @@ from time import sleep
 from datetime import datetime
 import pytz
 import pprint
-# import twilio_helper as twilio
+import twilio_helper as twilio
 
-filename = 'lion-posts.txt'
+filename = 'lion-posts.csv'
 messages_id = set()
 f = open(filename, 'r', newline='', encoding='utf-8')
 csv_reader = csv.reader(f)
 for row in csv_reader:
-    if row[0] != 'id':
-        messages_id.add(float(row[0]))
+    try:
+        if row[0] != 'id':
+            messages_id.add(float(row[0]))
+    except:
+        twilio.send_msg("lion_scraper has failed")
+
 print(messages_id)
 f.close()
 
 def sanitize_str(s):
-    return s
+    result = s.replace('\n', ' ')
+    return result
 
 f = open(filename, 'a', newline='', encoding='utf-8')
-csv_writer = csv.writer(f, delimiter=',',quotechar="'", quoting=csv.QUOTE_NONNUMERIC)
+csv_writer = csv.writer(f, delimiter=',',quotechar='"', quoting=csv.QUOTE_NONNUMERIC)
 #GET
 #-------------------
 res = requests.get('https://api.stocktwits.com/api/2/streams/user/lionmaster.json')
@@ -37,25 +42,28 @@ res_dict['messages'].reverse()
 for msg in res_dict['messages']:
     if 'symbols' in msg:
         if msg['id'] not in messages_id:
-            
-            symbs = ""
-            for x in msg['symbols']:
-                if symbs == "":
-                    symbs += x['symbol']
-                else:
-                    symbs += ','+x['symbol']
-            row = []
-            row.append(msg['id'])
-            row.append(sanitize_str(msg['body']))
-            row.append(msg['created_at'])
-            row.append(symbs)
-            # print(msg['id'])
-            # print(msg['body'])
-            # print(msg['created_at'])
-            csv_writer.writerow(row)
+            try:
+                symbs = ""
+                for x in msg['symbols']:
+                    if symbs == "":
+                        symbs += x['symbol']
+                    else:
+                        symbs += ','+x['symbol']
+                row = []
+                row.append(msg['id'])
+                row.append(sanitize_str(msg['body']))
+                row.append(msg['created_at'])
+                row.append(symbs)
+                # print(msg['id'])
+                # print(msg['body'])
+                # print(msg['created_at'])
+                csv_writer.writerow(row)
+                twilio.send_msg(msg['body'])
+            except:
+                twilio.send_msg("lion_scraper has failed")
 
 
-
+f.close()
 
 
 utc_now = pytz.utc.localize(datetime.utcnow())
