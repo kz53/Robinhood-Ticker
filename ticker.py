@@ -67,7 +67,7 @@ while(i<23000):
     except:
         for j in range(len(files)):
             f = files[j]
-            f.write('-1'+',\n')
+            f.write('-1'+'\n')
             f.flush()
         if not failed:
             twilio.notify_error_msg()
